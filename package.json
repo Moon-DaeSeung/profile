@@ -50,9 +50,8 @@
     "type": "git",
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
-  "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d public",
+  "scripts": { 
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",

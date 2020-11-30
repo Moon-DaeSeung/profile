@@ -2,38 +2,41 @@ import React from "react"
 import styled from "styled-components"
 import { Link, graphql } from "gatsby"
 import SEO from "../components/seo"
+import myFace from "../../static/my_face.png"
 
 const Html = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
   margin: 0px;
   padding: 0px;
-  position: absolute;
-  height: 100%;
-  width: 100%;
 `
 
 const Header = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   width: 100%;
   min-height: 300px;
   background-color: #f0f8ff;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+  
 `
 const HeaderContents = styled.div`
-  position: relative;
   display: grid;
-  grid-template-columns: minmax(250px, 40%) 60%;
   width: 50%;
   height: 300px;
+
+  grid-template-columns: minmax(250px, 40%) 60%;
 `
 
 const ImgWrapper = styled.div`
+  grid-column: 1;
   width: 250px;
   height: 250px;
   border-radius: 70%;
   overflow: hidden;
-  grid-column: 1;
 
   margin-top: 10%;
 `
@@ -43,9 +46,9 @@ const MyFaceImg = styled.img`
   object-fit: cover;
 `
 const Intro = styled.div`
-  width: 100%;
   grid-column: 2 / 3;
-  display: inline;
+  width: 100%;
+
   text-align: left;
   margin-left: 30px;
 `
@@ -54,30 +57,35 @@ const Name = styled.div`
   font-weight: bold;
   border-bottom: 3px solid;
   font-family: Impact, Charcoal, "sans-serif";
+
   margin-top: 70px;
 `
 const Explain = styled.div`
   font-size: 20px;
-  margin-top: 50px;
   font-family: cursive, Charcoal, "sans-serif";
+
+  margin-top: 50px;
 `
 
 const BodyWrapper = styled.div`
   display: grid;
   width: 100%;
   min-height: 100%;
+
   grid-template-columns: 40% 60%;
   font-size: 25px;
 `
 
 const LeftWrapper = styled.div`
   width: 100%;
-  display: inline;
+  background-color: #fffafa;
+
   text-align: left;
+  font-family: Times, "Times New Roman", serif;
+
   padding-left: 10%;
   padding-right: 10%;
-  background-color: #fffafa;
-  font-family: Times, "Times New Roman", serif;
+  
 `
 const LeftTitle = styled.div`
   font-size: 35px;
@@ -88,37 +96,39 @@ const LeftContent = styled.div`
   margin-top: 10px;
 `
 const PostContainer = styled.div`
- margin-bottom:10px;
  display:grid;
- grid-template-columns: 70% 30%;
+ grid-template-columns: 90%;
+
+ margin-bottom:10px;
 `
 
 
 const RightWrapper = styled.div`
   width: 100%;
   background-color: #f8f8ff;
-  display: inline;
+
   text-align: left;
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
   padding-left: 10%;
   padding-right: 10%;
-  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  
 `
 
 const RightTitle = styled.div`
   font-size: 35px;
-  margin-top: 40px;
-  letter-spacing: 10px;
   color: #778899;
   font-weight: bold;
+
+  margin-top: 40px;
+  letter-spacing: 10px;
 `
 const RightContent = styled.div`
   font-size: 20px;
   margin-top: 10px;
 `
-const Ul = styled.ul`
-  padding-left: 10px;
-`
-const Home = ({ data, location }) => {
+
+const Home = ({ data }) => {
   const posts = data.allMarkdownRemark.nodes
 
   return (
@@ -127,7 +137,7 @@ const Home = ({ data, location }) => {
       <Header>
         <HeaderContents>
           <ImgWrapper>
-            <MyFaceImg src={`my_face.png`}></MyFaceImg>
+            <MyFaceImg src={myFace}></MyFaceImg>
           </ImgWrapper>
           <Intro>
             <Name>Moon Dae Seung</Name>
@@ -176,6 +186,7 @@ const Home = ({ data, location }) => {
                   </PostContainer>
                 )
               })}
+            {posts.lenght === 0 ? ``:<Link to="posts"> See more posts </Link> }
           </LeftContent>
           <LeftTitle>Contact</LeftTitle>
           <LeftContent>
