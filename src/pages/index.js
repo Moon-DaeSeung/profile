@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Link, graphql } from "gatsby"
 import SEO from "../components/seo"
 import myFace from "../../static/my_face.png"
+import { device } from "../utils/device"
 
 const Html = styled.div`
   position: absolute;
@@ -20,15 +21,25 @@ const Header = styled.div`
 
   align-items: center;
   justify-content: center;
-  text-align: center; 
-  
+  text-align: center;
 `
-const HeaderContents = styled.div`
+const HeaderWrapper = styled.div`
   display: grid;
   width: 50%;
-  height: 300px;
+  min-height: 300px;
 
   grid-template-columns: minmax(250px, 40%) 60%;
+
+  @media ${device.mobile} {
+    display: flex;
+    width: 100%;
+    background-color: #f8f8ff;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 `
 
 const ImgWrapper = styled.div`
@@ -59,6 +70,10 @@ const Name = styled.div`
   font-family: Impact, Charcoal, "sans-serif";
 
   margin-top: 70px;
+
+  @media ${device.mobile} {
+    margin-top: 35px;
+  }
 `
 const Explain = styled.div`
   font-size: 20px;
@@ -67,13 +82,22 @@ const Explain = styled.div`
   margin-top: 50px;
 `
 
-const BodyWrapper = styled.div`
+const Body = styled.div`
   display: grid;
   width: 100%;
   min-height: 100%;
 
   grid-template-columns: 40% 60%;
   font-size: 25px;
+
+  @media ${device.mobile} {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 `
 
 const LeftWrapper = styled.div`
@@ -85,7 +109,11 @@ const LeftWrapper = styled.div`
 
   padding-left: 10%;
   padding-right: 10%;
-  
+
+  @media ${device.mobile} {
+    background-color: #f8f8ff;
+    padding-left: 5%;
+  }
 `
 const LeftTitle = styled.div`
   font-size: 35px;
@@ -96,29 +124,30 @@ const LeftContent = styled.div`
   margin-top: 10px;
 `
 const PostContainer = styled.div`
- display:grid;
- grid-template-columns: 90%;
+  display: grid;
+  grid-template-columns: 90%;
 
- margin-bottom:10px;
+  margin-bottom: 10px;
 `
-
 
 const RightWrapper = styled.div`
   width: 100%;
   background-color: #f8f8ff;
 
   text-align: left;
-  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 
   padding-left: 10%;
   padding-right: 10%;
-  
-`
 
+  @media ${device.mobile} {
+    padding-left: 5%;
+  }
+`
 const RightTitle = styled.div`
   font-size: 35px;
   color: #778899;
   font-weight: bold;
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 
   margin-top: 40px;
   letter-spacing: 10px;
@@ -126,8 +155,49 @@ const RightTitle = styled.div`
 const RightContent = styled.div`
   font-size: 20px;
   margin-top: 10px;
+  font-family: "나눔고딕", NanumGothic, "fontng";
+`
+const Space = styled.div`
+  height: 30px;
+`
+const Footer = styled.div`
+  display: grid;
+  width: 100%;
+  min-height: 200px;
+  background-color: #778899;
+  grid-template-columns: 40% 60%;
+
+  @media ${device.mobile} {
+    display: flex;
+    width: 100%;
+    flex-direction: column-reverse;
+    align-items: left;
+    justify-content: center;
+    text-align: center;
+  }
+`
+const FooterWrapper = styled.div`
+  text-align: left;
+  font-family: Times, "Times New Roman", serif;
+
+  padding-left: 30px;
+`
+const FooterTitle = styled.div`
+  font-size: 35px;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
 `
 
+const FooterContent = styled.div`
+  font-size: 20px;
+  color: #f8f8ff;
+  margin-top: 10px;
+`
+const RightAlign = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
 const Home = ({ data }) => {
   const posts = data.allMarkdownRemark.nodes
 
@@ -135,7 +205,7 @@ const Home = ({ data }) => {
     <Html>
       <SEO title="문대승" />
       <Header>
-        <HeaderContents>
+        <HeaderWrapper>
           <ImgWrapper>
             <MyFaceImg src={myFace}></MyFaceImg>
           </ImgWrapper>
@@ -145,10 +215,10 @@ const Home = ({ data }) => {
               I hope to be programmar who can solve the problem creatively
             </Explain>
           </Intro>
-        </HeaderContents>
+        </HeaderWrapper>
       </Header>
 
-      <BodyWrapper>
+      <Body>
         <LeftWrapper>
           <LeftTitle>Profile</LeftTitle>
           <LeftContent>
@@ -171,30 +241,27 @@ const Home = ({ data }) => {
           </LeftContent>
           <LeftTitle>Posts</LeftTitle>
           <LeftContent>
-          {posts.lenght === 0
-            ? ` No blog posts registered yet `
-            : 
-              posts.map(post => {
-                const title = post.frontmatter.title || post.fields.slug
-                
-                return (
-                  <PostContainer>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                    <small>{post.frontmatter.date}</small>
-                  </PostContainer>
-                )
-              })}
-            {posts.lenght === 0 ? ``:<Link to="posts"> See more posts </Link> }
-          </LeftContent>
-          <LeftTitle>Contact</LeftTitle>
-          <LeftContent>
-            Email: anseotmd555@naver.com
-            <br />
-            PhoneNumber: 010-2307-1189
-            <br />
-            Feel free to contact
+            {posts.lenght === 0
+              ? ` No blog posts registered yet `
+              : posts.map(post => {
+                  const title = post.frontmatter.title || post.fields.slug
+
+                  return (
+                    <PostContainer>
+                      <Link to={post.fields.slug} itemProp="url">
+                        <span itemProp="headline">{title}</span>
+                      </Link>
+                      <small>{post.frontmatter.date}</small>
+                    </PostContainer>
+                  )
+                })}
+            <RightAlign>
+              {posts.lenght === 0 ? (
+                ``
+              ) : (
+                <Link to="posts"> See more posts </Link>
+              )}
+            </RightAlign>
           </LeftContent>
         </LeftWrapper>
 
@@ -217,7 +284,6 @@ const Home = ({ data }) => {
               RDBMS의 테이블를 설계하고 SQL로 데이터를 전처리할 수 있습니다.
             </li>
             <li>Spring과 JPA를 통해 비지니스 로직을 구현할 수 있습니다.</li>
-            <li>gatsby를 통해 페이지를 구성할 수 있습니다. (현재 페이지)</li>
           </RightContent>
           <RightTitle>EXPERIENCE</RightTitle>
           <RightContent>
@@ -231,8 +297,31 @@ const Home = ({ data }) => {
             검토하기 위해 VBA를 통해 새로 프로그램을 만들어 오류를 검출, 수정한
             경험이 있습니다.
           </RightContent>
+          <Space />
         </RightWrapper>
-      </BodyWrapper>
+      </Body>
+
+      <Footer>
+        <FooterWrapper>
+          <FooterTitle>Contact</FooterTitle>
+          <FooterContent>
+            Email: anseotmd555@naver.com
+            <br />
+            Phone: 010-2307-1189
+          </FooterContent>
+        </FooterWrapper>
+        <FooterWrapper>
+          <FooterTitle>History</FooterTitle>
+          <FooterContent>
+            2017: 서울대학교 물리교육과 졸업
+            <br />
+            2019: 전역 (공군)
+            <br />
+            2020.3~: 휴브알엔씨 근무
+            <br />
+          </FooterContent>
+        </FooterWrapper>
+      </Footer>
     </Html>
   )
 }
