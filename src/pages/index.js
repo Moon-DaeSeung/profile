@@ -313,9 +313,9 @@ const Home = ({ data }) => {
         <FooterWrapper>
           <FooterTitle>History</FooterTitle>
           <FooterContent>
-            2017: 서울대학교 물리교육과 졸업
+            2017.8: 서울대학교 물리교육과 졸업
             <br />
-            2019: 전역 (공군)
+            2017.9 ~ 2019.8: 군 복무(공군)
             <br />
             2020.3~: 휴브알엔씨 근무
             <br />
