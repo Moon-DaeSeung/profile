@@ -179,7 +179,6 @@ const Footer = styled.div`
 const FooterWrapper = styled.div`
   text-align: left;
   font-family: Times, "Times New Roman", serif;
-
   padding-left: 30px;
 `
 const FooterTitle = styled.div`
